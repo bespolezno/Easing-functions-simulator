@@ -1,0 +1,41 @@
+{
+   "description":"In the provided equations, t has value range 0-1. Source: https://gist.github.com/gre/1650294",
+   "easingFunctions":{
+      "linear":{
+         "text":"linear",
+         "description":"no easing, no acceleration",
+         "formula":"t",
+         "equation":"t"
+      },
+      "easeInQuart":{
+         "text":"easeInQuart",
+         "description":"accelerating from zero velocity ",
+         "formula":"t^4",
+         "equation":"t*t*t*t"
+      },
+      "easeOutQuart":{
+         "text":"easeOutQuart",
+         "description":"decelerating to zero velocity ",
+         "formula":"1-(--t)t^3",
+         "equation":"1-(--t)*t*t*t"
+      },
+      "easeInOutQuart":{
+         "text":"easeInOutQuart",
+         "description":"acceleration until halfway, then deceleration",
+         "formula":"t<.5 ? 8t^4 : 1-8*(--t)t^3",
+         "equation":"t<.5 ? 8*t*t*t*t : 1-8*(--t)*t*t*t"
+      },
+      "easeInQuint":{
+         "text":"easeInQuint",
+         "description":"accelerating from zero velocity",
+         "formula":"t^5",
+         "equation":"t*t*t*t*t"
+      },
+      "easeOutQuint":{
+         "text":"easeOutQuint",
+         "description":"decelerating to zero velocity",
+         "formula":"1+(--t)t^4",
+         "equation":"1+(--t)*t*t*t*t"
+      }
+   }
+}

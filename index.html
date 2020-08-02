@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="assets/css/bootstrap.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script type="module" src="assets/js/app.js"></script>
+</head>
+<body>
+<div id="app">
+    <header class="d-flex p-2 align-items-center position-fixed pr-4">
+        <button class="info btn btn-primary ml-auto" @click="toggleAbout">
+            <span class="desktop-text">About</span>
+            <span class="mobile-text">i</span>
+        </button>
+    </header>
+    <transition name="show">
+        <div class="about position-fixed p-4"
+             v-if="aboutVisible">
+            <div class="container">
+                <h2 class="pb-2">About easing functions</h2>
+                <p>CSS supports two kinds of easing functions: the subset of the cubic Bézier curves that are functions,
+                    and
+                    staircase functions. The most useful of these functions are given a keyword that allows them to be
+                    easily referenced.</p>
+                <p>The cubic-bezier functional notation defines a cubic Bézier curve. As these curves are continuous,
+                    they
+                    are often used to smooth down the start and end of the animation and are therefore sometimes called
+                    easing functions.</p>
+                <div class="float-md-left text-center pb-2">
+                    <img src="assets/img/cubic-bezier,%20example.png" alt="example">
+                </div>
+                <p>A cubic Bézier curve is defined by four points P0, P1, P2, and P3. P0 and P3 are the start and the
+                    end of
+                    the curve and, in CSS these points are fixed as the coordinates are ratios (the abscissa the ratio
+                    of
+                    time, the ordinate the ratio of the output range). P0 is (0, 0) and represents the initial time and
+                    the
+                    initial state, P3 is (1, 1) and represents the final time and the final state.</p>
+                <p>Not all cubic Bézier curves are suitable as easing functions as not all are mathematical functions;
+                    i.e.,
+                    curves that for a given abscissa have zero or one value. With P0 and P3 fixed as defined by CSS, a
+                    cubic
+                    Bézier curve is a function, and is therefore valid, if and only if the abscissas of P1 and P2 are
+                    both
+                    in the [0, 1] range.</p>
+                <p>Cubic Bézier curves with the P1 or P2 ordinate outside the [0, 1] range may generate bouncing
+                    effects.</p>
+            </div>
+        </div>
+    </transition>
+    <main class="main">
+        <div class="col50 functions p-5 row m-0">
+            <h2 class="col-md-12 pb-4">Easing options</h2>
+            <div class="option col-6"
+                 v-for="option in options"
+                 :key="option.text">
+                <input type="checkbox"
+                       class="option-check d-none"
+                       :id="`option-${option.text}`"
+                       v-model="option.checked">
+                <label :for="`option-${option.text}`" class="option-label p-3 w-100 position-relative">
+                    <span class="d-flex justify-content-between">
+                        <h4 class="option-title"
+                            :style="{color: option.color}">{{ option.text }}</h4>
+                        <span class="option-checkbox"></span>
+                    </span>
+                    <preview :func="option.func"
+                             :color="option.color"
+                             delay="1"
+                             stroke="6"
+                             class="option-preview pb-2"></preview>
+                    <p class="text-center option-description mb-0">{{ option.description }}</p>
+                    <span class="formula" v-html="option.equation"></span>
+                </label>
+            </div>
+        </div>
+        <div class="col50 p-5">
+            <h2 class="pb-4">Chart</h2>
+            <div class="chart-wrapper d-flex justify-content-center flex-column">
+                <div class="chart chart-bg-lines position-relative">
+                    <div class="chart-val font-weight-bold">&fnof;(t)</div>
+                    <div class="chart-t font-weight-bold">t</div>
+                    <div class="time">3s</div>
+                    <div class="zero">0</div>
+                    <div class="percent">100%</div>
+                    <div class="percent50">50%</div>
+                    <svg viewBox="-8 -8 116 116" xmlns="http://www.w3.org/2000/svg"
+                         class="chart-rounds">
+                        <transition-group tag="g" name="fade">
+                            <g v-for="(option, i) in selected"
+                               :key="option.text"
+                                class="svg-inner">
+                                <path :cx="0"
+                                      :cy="100"
+                                      :d="generatePath(option.func)"
+                                      fill="none"
+                                      stroke-width="1"
+                                      :stroke="option.color"/>
+                                <circle :cx="currentTime"
+                                        :cy="100 - option.func(currentTime / 100) * 100"
+                                        r="4"
+                                        fill="white"
+                                        :stroke="option.color"
+                                        stroke-width=".8"/>
+                                <text :x="currentTime"
+                                      :y="101.25 - option.func(currentTime / 100) * 100"
+                                      text-anchor="middle"
+                                      :fill="option.color"
+                                      font-size="3.5">{{option.func(currentTime / 100) * 100 ^ 0}}
+                                </text>
+                            </g>
+                        </transition-group>
+                    </svg>
+                </div>
+                <input type="range" v-model="currentTime" min="0" max="100" class="slider mb-5">
+                <button class="btn btn-primary btn-lg text-center w-100" @click="play">Play</button>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <button class="btn up btn-primary m-4 ml-auto" @click="scrollUp">&uarr;</button>
+    </footer>
+</div>
+</body>
+</html>

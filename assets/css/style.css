@@ -1,0 +1,371 @@
+/* Common */
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+html, body {
+    width: 100vw;
+    overflow-x: hidden;
+}
+
+html {
+    font-size: 16px;
+}
+
+/* Blocks */
+
+header {
+    height: 70px;
+    border-bottom: 1px solid black;
+    top: 0;
+    width: 100%;
+    background: white;
+    z-index: 10;
+}
+
+canvas {
+    width: 100%;
+    image-rendering: smooth;
+}
+
+#app::before {
+    content: "";
+    display: block;
+    height: 70px;
+}
+
+.main {
+    display: flex;
+    align-items: flex-start;
+}
+
+.col50 {
+    width: 50%;
+}
+
+.about {
+    background: #fff;
+    height: calc(100vh - 70px);
+    overflow-y: auto;
+    width: 100vw;
+    z-index: 1;
+}
+
+/* Chart */
+
+.chart-wrapper {
+    max-width: 550px;
+    margin: 0 auto;
+}
+
+.chart {
+    width: 100%;
+    margin-bottom: 80px;
+    padding-bottom: 100%;
+    border-bottom: 1px solid black;
+    border-left: 1px solid black;
+}
+
+.chart-bg-lines {
+    background: linear-gradient(to left, #0003 1px, transparent 1px) 0 0 / 10%,
+    linear-gradient(to bottom, #0003 1px, transparent 1px) 0 0 / 10% 10%;
+}
+
+.chart::before {
+    content: ">";
+    position: absolute;
+    left: -14px;
+    top: -20px;
+    transform: rotate(-90deg);
+    font-size: 30px;
+}
+
+.chart::after {
+    content: ">";
+    position: absolute;
+    right: -5px;
+    bottom: -20px;
+    font-size: 30px;
+}
+
+.chart-val {
+    position: absolute;
+    left: 1rem;
+    top: -1.5rem;
+}
+
+.chart-t {
+    position: absolute;
+    bottom: .5rem;
+    right: -1rem;
+}
+
+.chart-rounds {
+    width: 116%;
+    margin: -8%;
+    position: absolute;
+}
+
+.time {
+    position: absolute;
+    right: -10px;
+    bottom: -30px;
+    font-size: 1rem;
+}
+
+.percent {
+    position: absolute;
+    left: -3rem;
+    top: -.75rem;
+}
+
+.percent50 {
+    position: absolute;
+    left: -3rem;
+    top: calc(50% - .75em);
+}
+
+.zero {
+    position: absolute;
+    left: -10px;
+    bottom: -30px;
+    font-size: 1rem;
+}
+
+.slider {
+    width: 100%;
+    appearance: none;
+    outline: none;
+    margin-bottom: 80px;
+}
+
+.slider::-webkit-slider-thumb {
+    appearance: none;
+    cursor: pointer;
+    width: 2px;
+    height: 2px;
+    border-radius: 100px;
+    background: #007bff;
+    transform: scale(20);
+    transition: all .5s;
+}
+
+.slider:hover::-webkit-slider-thumb {
+    transform: scale(25);
+    background: #005cbf;
+}
+
+.slider::-webkit-slider-container {
+    background: lightblue;
+    border-radius: 100px;
+    height: 20px;
+    transition: all .5s;
+}
+
+.slider:hover::-webkit-slider-container {
+    background: cornflowerblue;
+}
+
+.preview-canvas {
+    width: 104.8%;
+    margin: -2.4%;
+}
+
+.svg-inner {
+    z-index: 10;
+}
+
+.svg-hov {
+    opacity: 0;
+}
+
+.chart:hover .svg-hov {
+    opacity: 1;
+}
+
+/* Options */
+
+.option-label {
+    border-radius: 5px;
+    transition: all .3s;
+    background: #EEEEEE;
+    overflow: hidden;
+}
+
+.option-title {
+    font-size: 1.5rem;
+}
+
+.option-description {
+    font-size: 1rem;
+    min-height: 3rem;
+    display: block;
+}
+
+.option-preview {
+    width: 60%;
+    margin-left: 20%;
+}
+
+.option-label:hover .formula {
+    opacity: 1;
+}
+
+.option-check:checked + .option-label {
+    background: #424242;
+    color: #F5F5F5;
+}
+
+.option-checkbox {
+    width: 40px;
+    background: white;
+    height: 20px;
+    display: inline-block;
+    border-radius: 10px;
+    position: relative;
+    padding: 2px;
+}
+
+.option-checkbox:before {
+    content: "";
+    display: block;
+    width: 16px;
+    height: 16px;
+    background: currentColor;
+    border-radius: 10px;
+    transition: all .3s;
+}
+
+.option-check:checked + .option-label .option-checkbox:before {
+    transform: translateX(20px);
+    background: #007bff;
+}
+
+.formula {
+    opacity: 0;
+    display: flex;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    background: #0003;
+    font-size: 1rem;
+    transition: all .3s;
+}
+
+/* Animation */
+
+@keyframes slide {
+    to {
+        transform: translateX(100%);
+    }
+}
+
+@keyframes fade {
+    from {
+        opacity: 0;
+    }
+}
+
+@keyframes popup {
+    from {
+        transform: scale(0);
+        transform-origin: center center;
+    }
+    to {
+        transform-origin: center center;
+    }
+}
+
+.show-enter-active {
+    animation: slide 1s ease-in-out reverse;
+}
+
+.show-leave-active {
+    animation: slide 1s ease-in-out;
+}
+
+.fade-enter-active {
+    animation: fade .5s ease-in-out;
+}
+
+.fade-leave-active {
+    animation: fade .5s ease-in-out reverse;
+}
+
+/* Mobile */
+
+.mobile-text {
+    display: none;
+    font-style: italic;
+    font-size: 20px;
+}
+
+.up {
+    display: none;
+}
+
+@media screen and (max-width: 767px) {
+    html {
+        font-size: 12px;
+    }
+
+    .info {
+        border-radius: 50px;
+        width: 50px;
+        height: 50px;
+    }
+
+    .show-enter-active {
+        animation: popup 1s ease-in-out;
+    }
+
+    .show-leave-active {
+        animation: popup 1s ease-in-out reverse;
+    }
+
+    .desktop-text {
+        display: none;
+    }
+
+    .mobile-text {
+        display: inline;
+    }
+
+    .main {
+        flex-direction: column-reverse;
+    }
+
+    .col50 {
+        width: 100%;
+    }
+
+    .up {
+        right: 20px;
+        bottom: 20px;
+        display: block;
+        border-radius: 40px;
+        height: 40px;
+        width: 40px;
+        font-size: 1.5rem;
+    }
+
+    .formula {
+        position: static;
+        opacity: 1;
+        background: transparent;
+    }
+
+    .option-title {
+        font-size: 1.2rem;
+    }
+
+    .option-label {
+        padding: .5rem;
+    }
+}
