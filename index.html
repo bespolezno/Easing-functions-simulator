@@ -95,12 +95,7 @@
                             <g v-for="(option, i) in selected"
                                :key="option.text"
                                 class="svg-inner">
-                                <path :cx="0"
-                                      :cy="100"
-                                      :d="generatePath(option.func)"
-                                      fill="none"
-                                      stroke-width="1"
-                                      :stroke="option.color"/>
+                                <easing-path :option="option"></easing-path>
                                 <circle :cx="currentTime"
                                         :cy="100 - option.func(currentTime / 100) * 100"
                                         r="4"

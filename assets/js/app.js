@@ -2,6 +2,7 @@
 
 import Vue from "./vue.esm.browser.js";
 import Preview from "./components/preview.js";
+import EasingPath from "./components/easingPath.js";
 
 const colors = [
     "#f44336",
@@ -17,7 +18,8 @@ const animTime = 3000;
 window.app = new Vue({
     el: "#app",
     components: {
-        Preview
+        Preview,
+        EasingPath
     },
     data: {
         options: [],
@@ -86,15 +88,6 @@ window.app = new Vue({
         scrollUp() {
             document.getElementById('app').scrollIntoView({behavior: "smooth",})
         },
-        /**
-         * Generates easing function path
-         * @param func
-         * @returns {string}
-         */
-        generatePath(func) {
-            const points = Array.from({length: 101}, (_, x) => `${x} ${100 - func(x / 100) * 100}`);
-            return `M0 100, ${points.join(', ')}`
-        }
     },
     computed: {
         selected() {
