@@ -185,6 +185,20 @@ canvas {
     opacity: 1;
 }
 
+.function {
+    padding: 5px;
+}
+
+.function::before {
+    content: "";
+    display: inline-block;
+    width: 1rem;
+    height: 1rem;
+    margin-right: 1ch;
+    border-radius: 9999px;
+    background: currentColor;
+}
+
 /* Options */
 
 .option-label {

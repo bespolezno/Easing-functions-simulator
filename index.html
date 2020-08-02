@@ -54,7 +54,7 @@
         </div>
     </transition>
     <main class="main">
-        <div class="col50 functions p-5 row m-0">
+        <div class="col50 functions p-md-3 p-5 row m-0">
             <h2 class="col-md-12 pb-4">Easing options</h2>
             <div class="option col-6"
                  v-for="option in options"
@@ -79,8 +79,14 @@
                 </label>
             </div>
         </div>
-        <div class="col50 p-5">
+        <div class="col50 p-md-3 p-5">
             <h2 class="pb-4">Chart</h2>
+            <div class="d-flex flex-wrap pb-4">
+                <div class="function"
+                     v-for="option in selected"
+                     :key="option.text"
+                     :style="{color: option.color}">{{ option.text }}</div>
+            </div>
             <div class="chart-wrapper d-flex justify-content-center flex-column">
                 <div class="chart chart-bg-lines position-relative">
                     <div class="chart-val font-weight-bold">&fnof;(t)</div>
